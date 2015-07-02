@@ -1,3 +1,27 @@
+# Output directories
+build/
+out/
+target/
+
+# IntelliJ IDEA files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Gradle
+.gradle/
+
+# Log directory
+logs/
+
+# vim files
+.*.sw[a-z]
+*.un~
+
+# Java class files
+*.class
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
