@@ -8,7 +8,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- *
+ * Various examples of mock code reuse.
  */
 public class ReusingMocksTests {
     @Mocked
@@ -64,7 +64,7 @@ public class ReusingMocksTests {
         assertThat(handler.doSomething(oneA), is(56));
     }
 
-    /*
+    /**
      * An example showing that non-final expectation sub-classes might not get picked up by JMockIt.
      *
      * I've seen it work, but apparently there are limits or doesn't always work, so avoid this and declare them final.

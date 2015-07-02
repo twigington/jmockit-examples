@@ -9,7 +9,9 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 /**
- * This test shows how you can using the Cascading annotation to reduce the mocks you need to define.
+ * This test originally was created to show how how the @Cascading annotation could be used to reduce the mocks needed.
+ * Now that @Mocked cascades and @Cascading has been removed this example is less meaningful.
+ * It is still a useful demo of how cascaded mocks work.
  */
 public class WordTest {
     /**

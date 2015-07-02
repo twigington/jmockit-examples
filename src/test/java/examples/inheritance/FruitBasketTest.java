@@ -4,7 +4,6 @@ import com.google.common.collect.Multiset;
 import mockit.Injectable;
 import mockit.Mocked;
 import mockit.NonStrictExpectations;
-import mockit.Tested;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
@@ -43,9 +42,11 @@ public class FruitBasketTest {
 
         Banana myBanana = new Banana("green");
         assertThat(myBanana.getColor(), is("red"));
-
     }
 
+    /**
+     * This test shows how Injectable can be used to to isolate a mock.
+     */
     @Test
     public void usingInjectableOnApple(@Injectable final Apple mockApple, @Mocked final Produce mockProduce) throws Exception {
         final Banana testBanana = new Banana("orange");
@@ -74,6 +75,5 @@ public class FruitBasketTest {
 
         Banana myBanana = new Banana("green");
         assertThat(myBanana.getColor(), is("green"));
-
     }
 }

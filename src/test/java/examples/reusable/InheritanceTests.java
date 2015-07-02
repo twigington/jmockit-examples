@@ -1,5 +1,6 @@
 package examples.reusable;
 
+import mockit.Expectations;
 import mockit.Mocked;
 import mockit.NonStrictExpectations;
 import org.junit.Test;
@@ -8,7 +9,8 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- *
+ * Examples of inheritance tests using the classes from the reusable package.
+ * The only mock reuse this shows is that an instance variable can be used in all tests.
  */
 public class InheritanceTests {
     @Mocked
@@ -18,7 +20,7 @@ public class InheritanceTests {
     public void mainClass() throws Exception {
         final Device one = new Device("one");
 
-        new NonStrictExpectations() {{
+        new Expectations() {{
             handler.doSomething(withInstanceOf(Device.class));
             result = 1;
         }};
@@ -31,7 +33,7 @@ public class InheritanceTests {
     public void subClass() throws Exception {
         final DeviceA oneA = new DeviceA("oneA", false);
 
-        new NonStrictExpectations() {{
+        new Expectations() {{
             handler.doSomething(withInstanceOf(Device.class));
             result = 1;
         }};
@@ -45,7 +47,7 @@ public class InheritanceTests {
         final Device one = new Device("one");
         final DeviceA oneA = new DeviceA("oneA", false);
 
-        new NonStrictExpectations() {{
+        new Expectations() {{
             handler.doSomething(withInstanceOf(DeviceA.class));
             result = 100;
 
@@ -65,6 +67,7 @@ public class InheritanceTests {
         final Device one = new Device("one");
         final DeviceA oneA = new DeviceA("oneA", false);
 
+        // Using Expectations will complain that the second call isn't made.
         new NonStrictExpectations() {{
             handler.doSomething(withInstanceOf(Device.class));
             result = 50;

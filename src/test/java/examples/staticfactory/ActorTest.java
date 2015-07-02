@@ -2,7 +2,6 @@ package examples.staticfactory;
 
 import mockit.Expectations;
 import mockit.Mocked;
-import mockit.NonStrictExpectations;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -29,7 +28,7 @@ public class ActorTest {
 
     @Test
     public void mockInTestMethodSig(@Mocked final MyService mock) throws Exception {
-        new NonStrictExpectations(){{
+        new Expectations(){{
             MyService.construct(anyString);
             result = mock;
 
