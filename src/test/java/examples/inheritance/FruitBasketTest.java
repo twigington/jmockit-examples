@@ -1,6 +1,7 @@
 package examples.inheritance;
 
 import com.google.common.collect.Multiset;
+import mockit.Expectations;
 import mockit.Injectable;
 import mockit.Mocked;
 import mockit.NonStrictExpectations;
@@ -15,21 +16,20 @@ public class FruitBasketTest {
      *
      */
     @Test
-    public void mockAppleAndProduceFactory(@Mocked final Apple mockApple, @Mocked("factory") final Produce mockProduce) throws Exception {
+    public void mockAppleAndProduceFactory(@Mocked final Apple mockApple) throws Exception {
         final Banana testBanana = new Banana("orange");
 
-        new NonStrictExpectations() {{
-            mockApple.getColor();
-            result = "red"; // only produce red apples
-
-            mockApple.isWormy();
-            result = false;
-
+        new Expectations(Produce.class) {{
             Produce.factory(Produce.Type.APPLE, anyString);
             result = mockApple;
 
             Produce.factory(Produce.Type.BANANA, anyString);
             result = testBanana;
+        }};
+
+        new Expectations() {{
+            mockApple.getColor();
+            result = "red"; // only produce red apples
         }};
 
         FruitBasket basket = new FruitBasket();
@@ -48,8 +48,16 @@ public class FruitBasketTest {
      * This test shows how Injectable can be used to to isolate a mock.
      */
     @Test
-    public void usingInjectableOnApple(@Injectable final Apple mockApple, @Mocked final Produce mockProduce) throws Exception {
+    public void usingInjectableOnApple(@Injectable final Apple mockApple) throws Exception {
         final Banana testBanana = new Banana("orange");
+
+        new Expectations(Produce.class) {{
+            Produce.factory(Produce.Type.APPLE, anyString);
+            result = mockApple;
+
+            Produce.factory(Produce.Type.BANANA, anyString);
+            result = testBanana;
+        }};
 
         new NonStrictExpectations() {{
             mockApple.getColor();
@@ -57,12 +65,6 @@ public class FruitBasketTest {
 
             mockApple.isWormy();
             result = false;
-
-            Produce.factory(Produce.Type.APPLE, anyString);
-            result = mockApple;
-
-            Produce.factory(Produce.Type.BANANA, anyString);
-            result = testBanana;
         }};
 
         FruitBasket basket = new FruitBasket();
