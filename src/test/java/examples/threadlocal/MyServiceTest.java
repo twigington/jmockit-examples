@@ -1,6 +1,8 @@
 package examples.threadlocal;
 
 import mockit.Expectations;
+import mockit.Mock;
+import mockit.MockUp;
 import mockit.Mocked;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -28,7 +30,29 @@ public class MyServiceTest {
     }
 
     /**
-     * This seems to be the most sane pattern.
+     * This appears to be the best solution.
+     */
+    @Test
+    public void mockUpMyThreadLocal_otherServiceMock(@Mocked final OtherService otherService) {
+        final String expectedOtherServiceName = "Mock Other Service";
+
+        new MockUp<MyThreadLocal>() {
+            @Mock OtherService getOtherService() {
+                return otherService;
+            }
+        };
+
+        new Expectations() {{
+            otherService.getName();
+            result = expectedOtherServiceName;
+        }};
+
+
+        MyService myService = new MyService();
+        assertThat(myService.getOtherServiceName(), is(expectedOtherServiceName));
+    }
+
+    /**
      * You will need to be careful that you don't corrupt the thread local for other tests.
      */
     @Test
