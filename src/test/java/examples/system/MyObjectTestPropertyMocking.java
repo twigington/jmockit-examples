@@ -9,8 +9,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * An example of what not to do. Mocking System at the Test instance variable level will mess up test failure output.
